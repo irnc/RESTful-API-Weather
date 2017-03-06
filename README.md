@@ -1,6 +1,6 @@
 # Weather app
 ### Description
-I want to receive a notification about a current weather at the end of the lesson.
+I am a student and I want to receive a notification about a current weather at the end of the lesson for plannig future actions.
 ### Getting the weather forecast:
 ##### By city name at current moment:
 
