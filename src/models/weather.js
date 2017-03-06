@@ -20,4 +20,15 @@ export default class Weather {
             });
     }
 
+    futureWeather(){
+         request.get("http://api.openweathermap.org/forecast/2.5/weather")
+            .query({
+                "q": this.city,
+                "APPID": this.APPID
+            })
+            .then((body) => {
+                return body;
+            });
+    }
+
 }

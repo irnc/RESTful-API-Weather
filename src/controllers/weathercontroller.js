@@ -11,4 +11,8 @@ export default class WeatherController {
     current() {
         return new Weather(this.city).currentWeather();
     }
+
+    future() {
+        return new Weather(this.city).futureWeather();
+    }
 }
