@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var fetch = require('node-fetch');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -22,22 +22,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
 app.use('/users', users);
 
+const weatherApiUrl = 'http://api.openweathermap.org/data/2.5/weather';
+const weatherApiAPPID = '0bcd51d21bed1ac0981c463585602e75';
+app.get('/weather/:city/current', (req, res) => {
+  const weatherQuery = weatherApiUrl + '?q=' + req.params.city + '&APPID=' + weatherApiAPPID;
+  fetch(weatherQuery)
+    .then(function(response) {
+      return response.json();
+    }).then(function(json) {
+      res.json(json);
+    });
 
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
-// app.get('/weather/:city/current', (req, res) => {
-//   const city = req.params.city;
-// });
-
-
+// "APPID": "0bcd51d21bed1ac0981c463585602e75"
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
