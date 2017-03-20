@@ -33,9 +33,9 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-app.get('/weather/:city/current', (req, res) => {
-  
-} );
+// app.get('/weather/:city/current', (req, res) => {
+//   const city = req.params.city;
+// });
 
 
 // error handler
