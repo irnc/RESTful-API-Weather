@@ -27,18 +27,43 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/users', users);
 
 const timetable = [{
-    "course": "1",
-    "groups": [{
-        "name": "Group121",
-        "timetable": [{
-            "time": "8:30/9:50",
-            "subject": "Math121"
-        }, {
-            "time": "18:30/19:50",
-            "subject": "Math121"
+    course: "1",
+    groups: [{
+        name: "Group121",
+        timetable: [{
+            time: "8:30/9:50",
+            subject: "Math121"
         }]
-    }]
-}];
+    },
+        {
+            name: "Group122",
+            timetable: [{
+                time: "10:05/11:25",
+                subject: "Math122"
+            }]
+        }
+    ]
+},
+    {
+        course: "2",
+        groups: [{
+            name: "Group221",
+            timetable: [{
+                time: "8:30/9:50",
+                subject: "Math221"
+            }]
+        },
+            {
+                name: "Group222",
+                timetable: [{
+                    time: "8:30/9:50",
+                    subject: "Math222"
+                }]
+            }
+        ]
+    }
+];
+
 
 const weatherApiUrl = 'http://api.openweathermap.org/data/2.5/weather';
 const weatherApiAPPID = '0bcd51d21bed1ac0981c463585602e75';
@@ -60,13 +85,40 @@ app.get('/timetable/:course/:group', (req, res) => {
     const course = req.params.course;
     const group = req.params.group;
     let time;
-    const choosenTimetable = timetable.find((t) => {
+    timetable.find((t) => {
         if (t.course === course) {
             time = t.groups.find((g) => g.name === group);
-            // return t.groups.find((g) => g.name === group);
         }
     });
     res.json(time);
+
+});
+
+app.get('/timetable/getallcourses', (req, res) => {
+
+    let courses = {};
+    courses['courses'] = [];
+    timetable.find((t) => {
+        courses["courses"].push(t.course);
+    });
+    res.json(courses);
+
+});
+
+app.get('/timetable-groups/:course/', (req, res) => {
+
+    const course = req.params.course;
+    let groups = {};
+    groups['groups'] = [];
+    timetable.find((t) => {
+        if (t.course === course) {
+            t.groups.find((g) => {
+                groups["groups"].push(g.name);
+            });
+        }
+
+    });
+    res.json(groups);
 
 });
 // catch 404 and forward to error handler

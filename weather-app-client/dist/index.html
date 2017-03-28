@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="bundle.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajax({ url: "http://localhost:3000/timetable/getallcourses",
+                context: document.body,
+                data:'json',
+                success: function(data){
+                    $.each(data, function(key, value) {
+                        $.each(value , function (index,courseValue) {
+                            $('#course')
+                                .append($('<option>', { value : courseValue })
+                                    .text( courseValue ));
+                        })
+                    });
+                }});
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+    <div id="choose">
+        <label on for="course">Course</label>
+        <select id="course">
+          <option value="0">Select</option>
+        </select>
+        <label for="group">Group</label>
+        <select onclick="showG()" id="group">
+          <option value="0">Select</option>
+
+        </select>
+        <input type="button" onclick="showTimetable()" value="Show timetable" />
+    </div>
+
+    <div id="table"></div>
+    
+</body>
+
+</html>
