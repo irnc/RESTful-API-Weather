@@ -1,0 +1,3 @@
+weather-app-server/node_modules/
+.idea
+/weather-app-server/.eslintrc
