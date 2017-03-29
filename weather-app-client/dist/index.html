@@ -19,6 +19,22 @@
                 }});
         });
 
+        function showG() {
+            $.ajax({
+                url: "http://localhost:3000/timetable-groups/" + $('#course').val() + "/",
+                context: document.body,
+                data: 'json',
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        $.each(value, function (index, groupValue) {
+                            $('#group')
+                                .append($('<option>', {value: groupValue})
+                                    .text(groupValue));
+                        })
+                    });
+                }
+            });
+        }
     </script>
 
 </head>
@@ -27,11 +43,11 @@
 
     <div id="choose">
         <label on for="course">Course</label>
-        <select id="course">
+        <select onchange="showG()" id="course">
           <option value="0">Select</option>
         </select>
         <label for="group">Group</label>
-        <select onclick="showG()" id="group">
+        <select onchange="chooseGroup()" id="group">
           <option value="0">Select</option>
 
         </select>

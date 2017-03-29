@@ -48,4 +48,5 @@ function showG() {
             });
         }
     });
+    course = $('#course').val();
 }
