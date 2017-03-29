@@ -50,3 +50,7 @@ function showG() {
     });
     course = $('#course').val();
 }
+
+document.addEventListener('DOMContenteLoaded', () => {
+    document.querySelector('#group').addEventListener('change', chooseGroup)
+});
